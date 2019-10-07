@@ -1,0 +1,34 @@
+.game {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.title {
+  color: #666;
+  margin: 10px;
+  text-align: center;
+}
+
+.memory-board {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.mem-field button {
+  display: inline-block;
+  margin: 0 15px;
+  border: thin solid #ddd;
+  width: 45px;
+  height: 45px;
+  margin: 10px;
+  font-size: 25px;
+}
+
+.timer {
+	color: #666;
+  margin-top: 3px;
+  margin-left: 3px;
+}
