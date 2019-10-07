@@ -3,15 +3,32 @@ import React, { useState, useEffect } from 'react';
 import getInitialState from '../math-utils';
 import MemoryDisplay from './MemoryDisplay';
 
-const Game = () => (
-  <MemoryBoard />
-);
+const Game = () => {
+
+  return (
+    <>
+      <HighScore />
+      <MemoryBoard />
+    </>
+  );
+};
+
+const HighScore = () => {
+
+  return (
+    <div className="highscore">
+      Highscore is placed here...
+    </div >
+  );
+};
+
 
 const MemoryBoard = () => {
   const [gameState, setGameState] = useState(getInitialState());
   const [faultyGameState, setFaultyGameState] = useState(false);
   const [winnerState, setWinnerState] = useState(false);
   const [timeToWinState, setTimeToWinState] = useState(0);
+  const [startGameState, setStartGameState] = useState(false);
 
   const shouldShow = (obj) => {
     const bBool = obj.isSelected || obj.isLocked;
@@ -20,6 +37,9 @@ const MemoryBoard = () => {
 
 
   const onClickHandler = (id) => {
+    // Start the Game when first button is pressed...
+    if (!startGameState) { setStartGameState(true); }
+
     if (gameState.filter(field => field.isSelected).length >= 2) {
       return;
     }
@@ -105,7 +125,9 @@ const MemoryBoard = () => {
 
   }, [timeToWinState, winnerState]);
 
+  // Count up the time passed every second...
   useEffect(() => {
+    if (!startGameState) { return; }
     if (!winnerState) {
       const timerId = setTimeout(() => setTimeToWinState(timeToWinState + 1), 1000);
       return () => clearTimeout(timerId);
@@ -118,6 +140,7 @@ const MemoryBoard = () => {
     <div className="game">
       <div className="title">
         <h1>Memory</h1>
+        <h3>Pick two similar colors. The game starts when first button is pressed. Good luck!</h3>
       </div>
       <div className="memory-board">
         <MemoryDisplay onClick={onClickHandler} gameState={gameState.sort((curr, next) => curr.id - next.id)} shouldShow={shouldShow} />
