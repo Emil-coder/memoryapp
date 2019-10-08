@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import getInitialState from '../math-utils';
 import MemoryDisplay from './MemoryDisplay';
+import lang from './lang';
 
 const Game = () => {
 
@@ -9,8 +10,6 @@ const Game = () => {
     <MemoryBoard />
   );
 };
-
-
 
 
 const MemoryBoard = () => {
@@ -137,7 +136,7 @@ const MemoryBoard = () => {
     <div className="game">
       <div className="title">
         <h1>Memory</h1>
-        <div className="help"><h3>Pick two similar colors. The game starts when first button is pressed. Good luck!</h3></div>
+        <div className="help"><h4>{lang.helpText}</h4></div>
       </div>
       <div className="container">
         <div className="left-half">
