@@ -6,21 +6,11 @@ import MemoryDisplay from './MemoryDisplay';
 const Game = () => {
 
   return (
-    <>
-      <HighScore />
-      <MemoryBoard />
-    </>
+    <MemoryBoard />
   );
 };
 
-const HighScore = () => {
 
-  return (
-    <div className="highscore">
-      Highscore is placed here...
-    </div >
-  );
-};
 
 
 const MemoryBoard = () => {
@@ -35,6 +25,14 @@ const MemoryBoard = () => {
     return bBool;
   };
 
+  const HighScore = () => {
+
+    return (
+      <div className="highscore">
+        Highscore is placed here...
+      </div >
+    );
+  };
 
   const onClickHandler = (id) => {
     // Start the Game when first button is pressed...
@@ -135,19 +133,28 @@ const MemoryBoard = () => {
   });
 
 
-
   return (
     <div className="game">
       <div className="title">
         <h1>Memory</h1>
-        <h3>Pick two similar colors. The game starts when first button is pressed. Good luck!</h3>
+        <div className="help"><h3>Pick two similar colors. The game starts when first button is pressed. Good luck!</h3></div>
       </div>
-      <div className="memory-board">
-        <MemoryDisplay onClick={onClickHandler} gameState={gameState.sort((curr, next) => curr.id - next.id)} shouldShow={shouldShow} />
+      <div className="container">
+        <div className="left-half">
+          <HighScore />
+        </div>
+        <div className="right-half">
+          <div className="memory-board">
+            <MemoryDisplay onClick={onClickHandler} gameState={gameState.sort((curr, next) => curr.id - next.id)} shouldShow={shouldShow} />
+          </div>
+        </div>
       </div>
       <div className="timer">Time Passed: {timeToWinState}s</div>
+
     </div >
   );
+
+
 };
 
 export function App() {
