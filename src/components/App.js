@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import getInitialState from '../math-utils';
 import MemoryDisplay from './MemoryDisplay';
 import lang from './lang';
+import urlUtils from '../url-utils';
 
 const Game = () => {
 
@@ -19,12 +20,17 @@ const MemoryBoard = () => {
   const [timeToWinState, setTimeToWinState] = useState(0);
   const [startGameState, setStartGameState] = useState(false);
 
+
   const shouldShow = (obj) => {
     const bBool = obj.isSelected || obj.isLocked;
     return bBool;
   };
 
   const HighScore = () => {
+
+    const response = await fetch(base_url + '/highscores');
+    const myJson = await response.json();
+    console.log(JSON.stringify(myJson));
 
     return (
       <div className="highscore">
@@ -149,7 +155,6 @@ const MemoryBoard = () => {
         </div>
       </div>
       <div className="timer">Time Passed: {timeToWinState}s</div>
-
     </div >
   );
 

@@ -36,6 +36,27 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.get('/highscores', async (req, res) => {
+  try {
+    console.log('currentDir ', __dirname);
+    const rawdata = fs.readFileSync(path.resolve(__dirname, '../highscoreData.json'));
+    const highscoreList = JSON.parse(rawdata);
+    res.status(200).json(highscoreList);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Server error ${err} at dir: ${__dirname}`);
+  }
+
+});
+
+
+app.post('/highscore', async (req, res) => {
+  if (req) {
+    //TODO: write request to local file using FS
+  }
+});
+
 app.listen(config.port, config.host, () => {
   fs.writeFileSync(
     path.resolve('.reactful.json'),
