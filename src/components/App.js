@@ -28,9 +28,11 @@ const MemoryBoard = () => {
 
   const HighScore = () => {
 
+    /*
     const response = await fetch(base_url + '/highscores');
     const myJson = await response.json();
     console.log(JSON.stringify(myJson));
+    */
 
     return (
       <div className="highscore">
