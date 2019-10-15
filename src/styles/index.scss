@@ -54,6 +54,46 @@
   border-radius: 5px;
 }
 
+.highscore-headers {
+  display: table;
+  width: 100%;
+  margin:0;
+  padding:0;
+}
+
+.highscore-headers-left {
+  display: table-cell;
+  width: 50%;
+  text-align: center;
+}
+
+.highscore-headers-left {
+  display: table-cell;
+  width: 50%;
+  text-align: center;
+}
+
+.highscores-result{
+  display:table;
+  width:100%;
+  height: 100%;
+}
+
+.highscore-field {
+  display: table;
+  width:100%;
+}
+
+.highscore-field-left{
+  display:table-cell;
+  width:50%;
+}
+
+.highscore-field-right{
+  display:table-cell;
+  width:50%;
+}
+
 
 .memory-board {
   display: flex;
