@@ -21,7 +21,7 @@ const MemoryBoard = () => {
   const [timeToWinState, setTimeToWinState] = useState(0);
   const [startGameState, setStartGameState] = useState(false);
   // Får inte använda getHighScores() i useState eftersom det är en sidoeffekt. Då måste man använda useEffect
-  // useState måste från början använda ett rent state och får inte ha nån sidoeffekt i grundstatet. 
+  // useState måste från början använda ett rent state och får inte ha nån sidoeffekt i grund-statet. 
   // fetch() och timeout() skapar sideeffects och är alltså inga pure functions som kan användas i useState.
 
 
@@ -81,8 +81,6 @@ const MemoryBoard = () => {
     }
 
   };
-
-
 
 
   useEffect(() => {

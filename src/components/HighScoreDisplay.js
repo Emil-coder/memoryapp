@@ -28,7 +28,7 @@ const HighScoreDisplay = () => {
       </div>
       <div className="highscores-result">
         {
-          highScores.map(obj =>
+          highScores.sort((curr, next) => curr.score - next.score).map(obj =>
             <HighScoreItem key={obj.id} obj={obj} />
           )
         }
@@ -37,6 +37,7 @@ const HighScoreDisplay = () => {
   );
 
 };
+
 
 export default HighScoreDisplay;
 

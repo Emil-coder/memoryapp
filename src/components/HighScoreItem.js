@@ -10,7 +10,7 @@ const HighScoreItem = props => {
           {props.obj.player}
         </div>
         <div className="highscore-field-right">
-          {props.obj.score}
+          {props.obj.score}s
         </div>
       </div>
     </>
