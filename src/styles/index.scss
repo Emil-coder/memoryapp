@@ -125,6 +125,32 @@
 // https://www.sanwebe.com/2014/08/css-html-forms-designs
 
 .modal-container{
+
+  filter: blur(0);
+  transform: scale(1);  
+  opacity: 1;
+  visibility: visible;
+  &.off {
+    opacity: 0;
+    visibility: hidden;
+    filter: blur(8px);
+    transform: scale(0.33);
+  }
+  @supports (offset-rotate: 0deg) {
+    // OLD
+    // offset-rotation: 0deg;
+    // NEW
+    offset-rotate: 0deg;
+    offset-path: path("M 500,-350 S -300,500 -100,-200");
+    &.off {
+      offset-distance: 100%;
+    }
+  }
+  @media (prefers-reduced-motion) {
+    offset-path: none;
+  }
+
+
 	width:450px;
 	padding:30px;
 	margin:40px auto;
