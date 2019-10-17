@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import getInitialState from '../math-utils';
+import getHighScores from '../data-utils';
 import MemoryDisplay from './MemoryDisplay';
 import HighScoreDisplay from './HighScoreDisplay';
 import lang from './lang';
@@ -22,10 +23,10 @@ const MemoryBoard = () => {
   const [timeToWinState, setTimeToWinState] = useState(0);
   const [startGameState, setStartGameState] = useState(false);
   const [showModalState, setShowModalState] = useState(false);
+  const [nextHighScoresId, setnextHighScoresId] = useState(false);
   // Får inte använda getHighScores() i useState eftersom det är en sidoeffekt. Då måste man använda useEffect
   // useState måste från början använda ett rent state och får inte ha nån sidoeffekt i grund-statet. 
   // fetch() och timeout() skapar sideeffects och är alltså inga pure functions som kan användas i useState.
-
 
 
   const shouldShow = (obj) => {
@@ -132,6 +133,19 @@ const MemoryBoard = () => {
     }
   });
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!nextHighScoresId) {// You can await here
+        const data = await getHighScores();
+        const nextId = data.length + 1;
+        setnextHighScoresId(nextId);
+      }
+    };
+    fetchData();
+  }, [nextHighScoresId]);
+
+
   const showModal = (e) => {
     setShowModalState(!showModalState);
   };
@@ -154,7 +168,7 @@ const MemoryBoard = () => {
       </div>
       <div className="timer">Time Passed: {timeToWinState}s</div>
       <button onClick={e => { showModal(e); }}> show modal </button>
-      <div className="modal"><Modal show={showModalState} score={timeToWinState} /></div>
+      <div className="modal"><Modal show={showModalState} score={timeToWinState} nextId={nextHighScoresId} /></div>
     </div >
 
 
