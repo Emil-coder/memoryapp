@@ -54,7 +54,12 @@ app.get('/highscores', async (req, res) => {
 app.post('/highscore', async (req, res) => {
   if (req) {
     //TODO: write request to local file using FS
+    res.status(200).json({
+      'msg': 'New Highscore object was added successfully!',
+      'obj': req.body,
+    });
   }
+
 });
 
 app.listen(config.port, config.host, () => {
