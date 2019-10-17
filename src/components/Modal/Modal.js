@@ -8,14 +8,23 @@ const Modal = props => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('inside handleSubmit');
-    console.log(event.target.elements.nextId.value);
-    console.log(event.target.elements.player.value);
-    console.log(event.target.elements.score.value);
+    const nextId = event.target.elements.nextId.value;
+    const player = event.target.elements.player.value;
+    const score = event.target.elements.score.value;
+
+    const newObj = {
+      'id': nextId,
+      'player': player,
+      'score': score,
+    };
+
+    console.log(newObj);
+
+    // TODO: post newObj to /highscore on the server and let that method write the object to file highscoreData.json
+
   };
 
 
-  console.log('inside Modal');
-  console.log('nextId:' + props.nextId);
   return (
     <>
       <div className="modal-container">
