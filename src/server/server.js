@@ -54,10 +54,21 @@ app.get('/highscores', async (req, res) => {
 app.post('/highscore', async (req, res) => {
   if (req) {
     //TODO: write request to local file using FS
-    res.status(200).json({
-      'msg': 'New Highscore object was added successfully!',
-      'obj': req.body,
-    });
+
+    try {
+      const data = req.body;
+      const filePath = path.resolve(__dirname, '../highscoreDataBackup.json');
+      fs.writeFileSync(filePath, data);
+
+      res.status(200).json({
+        'msg': 'New Highscore object was added successfully!',
+        'obj': data,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send(`Server error ${err} at dir: ${__dirname}`);
+    }
+
   }
 
 });
@@ -73,4 +84,5 @@ app.listen(config.port, config.host, () => {
   );
 
   console.info(`Running on ${config.host}:${config.port}...`);
+
 });
