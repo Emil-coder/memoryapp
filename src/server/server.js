@@ -52,7 +52,7 @@ app.get('/highscores', async (req, res) => {
 
 
 app.post('/highscore', async (req, res) => {
-  const outputFile = path.resolve(__dirname, '../highscoreDataBackup.json');
+  const outputFile = path.resolve(__dirname, '../highscoreData.json');
   if (req) {
     try {
       const rawdata = fs.readFileSync(outputFile);
