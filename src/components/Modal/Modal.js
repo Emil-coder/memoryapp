@@ -1,55 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
 import urlUtils from '../../urlUtils';
 import axios from 'axios';
 
 const Modal = props => {
+  const [player, setPlayer] = useState('');
+
   if (!props.show) {
     return null;
   }
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    console.log('inside handleSubmit');
-    const nextId = event.target.elements.nextId.value;
-    const player = event.target.elements.player.value;
-    const score = event.target.elements.score.value;
+  const handlePlayerInput = (e) => {
+    e.preventDefault();
+    setPlayer(e.target.value);
+  };
 
-    // https://malcoded.com/posts/react-http-requests-axios/
-    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    // https://www.youtube.com/watch?v=x9UEDRbLhJE
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const data = {
-      'id': nextId,
-      'player': player,
-      'score': score,
-    };
-
+    //const response = '';
+    const data = { id: props.nextId, score: props.score, player: player };
+    const obj = JSON.stringify(data);
     const url = urlUtils.base_url + '/highscore';
-    axios
-      .post(url, data)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
+
+    let response = '';
+
+    try {
+      response = await fetch(url, {
+        body: obj,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        redirect: 'follow',
+        referrer: 'no-referrer',
       });
-
-
-    // TODO: post newObj to /highscore on the server and let that method write the object to file highscoreData.json
+      console.log(response);
+    } catch (error) {
+      console.error('Oh my! Got an error: ', error.message);
+    }
 
   };
+
+
+  // axios
+  //   .post(url, obj)
+  //   .then(response => {
+  //     console.log(response);
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
 
 
   return (
     <>
       <div className="modal-container">
         <h1>Congratulations!<span>You won the game!</span></h1>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={handleSubmit}>
           <div className="section"><span>1</span>Player & Score</div>
           <div className="inner-wrap">
-            <input type="hidden" name="nextId" value={props.nextId} />
-            <input type="hidden" name="score" value={props.score} />
-            <label>Player <input type="text" name="player" placeholder="Your name here..." /></label>
+            <label>Player
+              <input
+                type="text"
+                name="player"
+                placeholder="Your name here..."
+                onChange={(e) => handlePlayerInput(e)}
+              />
+            </label>
             <label>Score: {props.score}s</label>
           </div>
 

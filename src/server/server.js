@@ -52,18 +52,14 @@ app.get('/highscores', async (req, res) => {
 
 
 app.post('/highscore', async (req, res) => {
+  const outputFile = path.resolve(__dirname, '../highscoreDataBackup.json');
   if (req) {
-    //TODO: write request to local file using FS
-
     try {
-      const data = req.body;
-      const filePath = path.resolve(__dirname, '../highscoreDataBackup.json');
-      fs.writeFileSync(filePath, data);
-
-      res.status(200).json({
-        'msg': 'New Highscore object was added successfully!',
-        'obj': data,
-      });
+      const rawdata = fs.readFileSync(outputFile);
+      const highscore = JSON.parse(rawdata);
+      highscore.push(req.body);
+      const save = fs.writeFile(outputFile, JSON.stringify(highscore), 'utf8', callback => (callback));
+      res.status(200).json(save);
     } catch (err) {
       console.error(err);
       res.status(500).send(`Server error ${err} at dir: ${__dirname}`);
