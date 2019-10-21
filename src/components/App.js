@@ -8,15 +8,16 @@ import lang from './lang';
 import Modal from './Modal/Modal';
 
 
-const Game = () => {
+const Game = props => {
+  console.log('gameId within Game:' + props.gameId);
 
   return (
-    <MemoryBoard />
+    <MemoryBoard startNewGame={props.startNewGame} />
   );
 };
 
 
-const MemoryBoard = () => {
+const MemoryBoard = props => {
   const [gameState, setGameState] = useState(getInitialState());
   const [faultyGameState, setFaultyGameState] = useState(false);
   const [winnerState, setWinnerState] = useState(false);
@@ -146,9 +147,10 @@ const MemoryBoard = () => {
   }, [nextHighScoresId]);
 
 
-  const showModal = (e) => {
+  const toggleModal = (e) => {
     setShowModalState(!showModalState);
   };
+
 
   return (
     <div className="game">
@@ -167,8 +169,10 @@ const MemoryBoard = () => {
         </div>
       </div>
       <div className="timer">Time Passed: {timeToWinState}s</div>
-      <button onClick={e => { showModal(e); }}> show modal </button>
-      <div className="modal"><Modal show={showModalState} score={timeToWinState} nextId={nextHighScoresId} /></div>
+      <button onClick={e => { toggleModal(e); }}> show modal </button>
+      <div className="modal">
+        {showModalState ? <Modal startNewGame={props.startNewGame} score={timeToWinState} nextId={nextHighScoresId} /> : ''}
+      </div>
     </div >
 
 
@@ -178,7 +182,9 @@ const MemoryBoard = () => {
 };
 
 export function App() {
+  const [gameId, setGameId] = useState(1);
+
   return (
-    <Game />
+    <Game key={gameId} gameId={gameId} startNewGame={() => setGameId(gameId + 1)} />
   );
 }

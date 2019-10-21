@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import urlUtils from '../../urlUtils';
-import axios from 'axios';
 
 const Modal = props => {
   const [player, setPlayer] = useState('');
-
-  if (!props.show) {
-    return null;
-  }
 
   const handlePlayerInput = (e) => {
     e.preventDefault();
@@ -43,17 +38,11 @@ const Modal = props => {
       console.error('Oh my! Got an error: ', error.message);
     }
 
+    // TODO: Fix so startNewGame mounts a fresh new game with a fresh new MemoryBoard.
+    props.startNewGame();
+
   };
 
-
-  // axios
-  //   .post(url, obj)
-  //   .then(response => {
-  //     console.log(response);
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
 
 
   return (
