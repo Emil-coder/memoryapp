@@ -41,26 +41,6 @@ const utils = {
     'turquoise',
   ],
 
-  /*
-  coloravail: [
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-  ],
-  */
 };
 
 //Function that returns initial state with shuffled values.
