@@ -9,7 +9,6 @@ import Modal from './Modal/Modal';
 
 
 const Game = props => {
-  console.log('gameId within Game:' + props.gameId);
 
   return (
     <MemoryBoard startNewGame={props.startNewGame} />
@@ -28,7 +27,6 @@ const MemoryBoard = props => {
   // Får inte använda getHighScores() i useState eftersom det är en sidoeffekt. Då måste man använda useEffect
   // useState måste från början använda ett rent state och får inte ha nån sidoeffekt i grund-statet. 
   // fetch() och timeout() skapar sideeffects och är alltså inga pure functions som kan användas i useState.
-
 
   const shouldShow = (obj) => {
     const bBool = obj.isSelected || obj.isLocked;
@@ -147,9 +145,9 @@ const MemoryBoard = props => {
   }, [nextHighScoresId]);
 
 
-  const toggleModal = (e) => {
-    setShowModalState(!showModalState);
-  };
+  // const toggleModal = (e) => {
+  //   setShowModalState(!showModalState);
+  // };
 
 
   return (
@@ -169,13 +167,11 @@ const MemoryBoard = props => {
         </div>
       </div>
       <div className="timer">Time Passed: {timeToWinState}s</div>
-      <button onClick={e => { toggleModal(e); }}> show modal </button>
+      {/* <button onClick={e => { toggleModal(e); }}> show modal </button> */}
       <div className="modal">
         {showModalState ? <Modal startNewGame={props.startNewGame} score={timeToWinState} nextId={nextHighScoresId} /> : ''}
       </div>
     </div >
-
-
   );
 
 

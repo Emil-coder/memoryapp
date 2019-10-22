@@ -38,7 +38,6 @@ const Modal = props => {
       console.error('Oh my! Got an error: ', error.message);
     }
 
-    // TODO: Fix so startNewGame mounts a fresh new game with a fresh new MemoryBoard.
     props.startNewGame();
 
   };
